@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-"""MCP web-tools v7: ddgs(web) + Google News RSS + Marginalia + robust read_page."""
+"""MCP web-tools v8: ddgs(web) + Google News RSS + Marginalia + robust read_page.
+Hardened tool descriptions so the model SEARCHES instead of answering from memory."""
 import re
 import requests
 from urllib.parse import quote_plus
@@ -16,7 +17,7 @@ def clean(s):
     return re.sub(r'\s+', ' ', re.sub('<[^>]+>', '', s or '')).strip()
 
 
-# ---------------- search backends (unchanged, proven working) ----------------
+# ---------------- search backends (proven working) ----------------
 
 def _ddgs(q):
     try:
@@ -86,11 +87,11 @@ def _run(q, order):
     return "\n".join("[" + str(n) + "] " + line for n, line in enumerate(lines, 1))
 
 
-# ---------------- NEW robust page reader ----------------
+# ---------------- robust page reader ----------------
 
 def _fetch_one(u, max_chars):
     last_err = None
-    for _ in range(2):                       # one retry on a network hiccup
+    for _ in range(2):
         try:
             r = requests.get(u, headers=UA, timeout=25, allow_redirects=True)
             r.raise_for_status()
@@ -101,7 +102,6 @@ def _fetch_one(u, max_chars):
             mt = re.search(r"(?is)<title[^>]*>(.*?)</title>", html)
             if mt:
                 title = clean(mt.group(1))
-            # strip chrome that is NOT article body
             html = re.sub(r"(?is)<(script|style|noscript|svg|form|iframe|nav|footer|header|aside|button|figure).*?</\1>", " ", html)
             mm = re.search(r"(?is)<(article|main)[^>]*>(.*?)</\1>", html)
             body = mm.group(2) if mm else html
@@ -138,19 +138,29 @@ def read_page(url: str, max_chars: int = 6000) -> str:
     return "\n\n===== PAGE BREAK =====\n\n".join(blocks)
 
 
-# ---------------- tools ----------------
+# ---------------- tools with HARDENED descriptions (the "concept") ----------------
 
 @mcp.tool()
 def web_search(query: str) -> str:
-    """General web search (DuckDuckGo via ddgs + Marginalia index).
-    Returns numbered list: source | title | URL | snippet.
-    Use read_page(url) to open and read any of those URLs in full."""
+    """MANDATORY fact lookup. You MUST call this BEFORE answering whenever the
+    question concerns a PERSON, COMPANY, PLACE, PRODUCT, EVENT, TERM, NAME, TITLE,
+    or any factual claim you are not 100% certain of — INCLUDING encyclopedic-style
+    questions like 'who is X', 'what is Y', 'what does Z mean', 'tell me about W'.
+    These look like things you should already know, but you DO NOT guess them:
+    search first, then answer strictly from the returned snippets.
+    NEVER reply 'provide more details', 'I don't know', or ask a clarifying question
+    INSTEAD of searching. If you are unsure whether you know something, treat it as
+    unknown and search. Returns a numbered list: source | title | URL | snippet.
+    Use read_page(url) to open any of those URLs in full when the user wants depth."""
     return _run(query, ["ddgs", "marginalia"])
 
 
 @mcp.tool()
 def news_search(query: str) -> str:
-    """Fresh news search via Google News RSS (no key). Use for current events / latest news."""
+    """Live news / current-events lookup via Google News RSS (no key). Call for
+    anything time-sensitive: latest news, recent developments, today's prices,
+    exchange rates, dates, scores, releases, announcements, 'what happened',
+    'current status'. Prefer this over web_search for 'latest / today / now'."""
     return _run(query, ["gnews", "ddgs"])
 
 
