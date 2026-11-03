@@ -2,7 +2,7 @@
   "mcpServers": {
     "web": {
       "command": "<PYTHON_EXE>",
-      "args": ["C:<REPO_PATH>/google_mcp.py"]
+      "args": ["<REPO_PATH>/google_mcp.py"]
     }
   }
 }
