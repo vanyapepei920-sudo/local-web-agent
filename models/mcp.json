@@ -1,8 +1,0 @@
-{
-  "mcpServers": {
-    "web": {
-      "command": "C:/Users/Dasha/AppData/Local/Programs/Python/Python313/python.exe",
-      "args": ["C:/models/google_mcp.py"]
-    }
-  }
-}
