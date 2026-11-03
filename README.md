@@ -103,7 +103,7 @@ Alternatives (see [Models](#models)):
 ### 3. Clone this repo
 
 ```bash
-git clone https://github.com/<you>/local-web-agent.git
+git clone https://github.com/vanyapepei920-sudo/local-web-agent.git
 cd local-web-agent
 ```
 
