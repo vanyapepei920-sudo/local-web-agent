@@ -1,5 +1,5 @@
 @echo off
-set "LLAMA=C:\Users\Dasha\Videos\5 element\llama-b10679-bin-win-cpu-x64"
+set "LLAMA=C:\ПУТЬ\llama-b10679-bin-win-cpu-x64"
 set "MCP=C:\models\mcp.json"
 cd /d "%LLAMA%" || (echo no llama folder & pause & exit /b)
 taskkill /F /IM llama-server.exe >nul 2>&1
