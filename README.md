@@ -397,7 +397,7 @@ curl -L -o Qwen3-1.7B-Q4_K_M.gguf \
 ### 3. Клонировать репозиторий
 
 ```bash
-git clone https://github.com/<you>/local-web-agent.git
+git clone https://github.com/vanyapepei920-sudo/local-web-agent.git
 cd local-web-agent
 ```
 
