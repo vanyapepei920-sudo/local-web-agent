@@ -1,0 +1,1 @@
+taskkill /F /IM llama-server.exe >nul 2>&1 & cd /d "C:\осрэ\llama-b10679-bin-win-cpu-x64" && llama-server.exe -m C:\осрэ\лндекэ.gguf --jinja --agent --mcp-servers-config C:\models\mcp.json --ui-mcp-proxy --host 127.0.0.1 --port 8080 -t 4 -c 16500 --cache-type-k q4_0 --cache-type-v q4_0
