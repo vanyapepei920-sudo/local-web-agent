@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "web": {
+      "command": "<PYTHON_EXE>",
+      "args": ["<REPO_PATH>/google_mcp.py"]
+    }
+  }
+}
