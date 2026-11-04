@@ -1,6 +1,6 @@
 # -*- coding: ascii -*-
-"""MCP web-tools v10: search now self-prompts page-reading when snippets lack
-the answer. read_page unchanged (multi-URL). No special tokens in strings."""
+"""MCP web-tools v10 (FINAL): search self-prompts page-reading when snippets
+lack the answer. read_page = multi-URL. search_health hidden from the model."""
 import re
 import requests
 from urllib.parse import quote_plus
