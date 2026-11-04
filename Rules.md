@@ -1,16 +1,100 @@
-#2b21f23 - I had to remove `two.bat` because it contained critical errors that could have caused the entire search system—and even your device’s operating system—to crash.
-#42535lgf - If the search function isn't working for you, the issue lies on your end. The system operates locally, just like the model itself; it is not connected to my servers. When you run it, it executes on your own computer, utilizing your local Wi-Fi or Ethernet connection.
-#4f455vd - By downloading my search system, you assume full responsibility should the model cause any damage or issues. I am not liable for any harm or loss resulting from the use of this search system.
-#64fe23 - I provide support—should something fail to work or if you have a question—ONLY if you contact me via email or through the "Issues" section on GitHub. If someone else offers to help you with a problem, do not accept; it is very easy for them to steal your data. In such a case, I bear no responsibility, and I will not provide any further assistance.
-#6r32567 - Upon downloading my search system, you acknowledge that the model may leave traces of your search activity. Please refer to points #42535lgf and #4f455vd for further details.
-#92fe3g - When you submit a query to the model using my search system, you assume full responsibility for that action. You are the one initiating the request; my system merely provides the model with the capability to access the internet.
-#5d6g7h - These terms are subject to updates; it is your responsibility to stay informed, and I am not liable if you fail to read them.
+# Terms of Use
+
+## 1. Local Execution
+
+This software runs **entirely locally** on your device using your own network connection (Wi-Fi/Ethernet). It does not connect to any external servers owned or controlled by the author. All search queries, page fetches, and model interactions occur on your machine.
+
+## 2. No Warranty
+
+This software is provided **"as-is"** under the MIT License, without warranty of any kind, express or implied. The author makes no representations about the suitability, reliability, availability, or accuracy of the software for any purpose.
+
+## 3. Limitation of Liability
+
+In no event shall the author be liable for any claim, damages, or other liability arising from:
+- Use or inability to use the software
+- Model behavior, outputs, or decisions made based on search results
+- System resource usage (RAM, CPU, network bandwidth)
+- Any damage to your device, data, or network
+
+You assume full responsibility for all actions performed using this software.
+
+## 4. User Responsibility
+
+By downloading and using this software, you acknowledge and agree that:
+- You are solely responsible for the queries you submit to the model
+- The software merely provides the model with internet access capabilities; you initiate all requests
+- You are responsible for monitoring resource usage on your device
+- You understand that running multiple models simultaneously may cause system slowdowns
+
+## 5. Privacy & Data
+
+- **Logs:** `llama-server` outputs logs to the console. Redirect output to `NUL` (Windows) or `/dev/null` (Linux/macOS) if privacy is a concern.
+- **Search traces:** Your search queries are sent directly to third-party services (DuckDuckGo, Google News RSS, Marginalia). Refer to their respective privacy policies.
+- **Local storage:** The model and configuration files remain on your device. No data is transmitted to the author.
+
+## 6. Official Support Channels
+
+Official support is provided **only** through:
+- Email: helpaisearch@gmail.com
+- GitHub Issues: https://github.com/vanyapepei920-sudo/local-web-agent/issues
+
+⚠️ **Security Warning:** Do not accept help from individuals in comments, DMs, or forums offering to "fix your setup." Never share your `mcp.json`, API keys, or configuration files with strangers. This is a common scam vector.
+
+## 7. Updates & Changes
+
+These terms may be updated periodically. It is your responsibility to review the latest version in the repository. Continued use of the software after changes constitutes acceptance of the updated terms.
+
+## 8. Acceptance
+
+By downloading, installing, or using this software, you agree to be bound by these terms and the MIT License.
 
 
-#2b21f23 - Мне пришлось удалить two.bat так как там были критические ошибки, из за которого могла вылететь вся система поиска и сама система вашего устройства. 
-#42535lgf - Если у вас не работает поиск = проблема на вашей стороне. Потому что он работает так же как и модель, локально. Он не привязан к моим серверам, запуская его, он запускается у вас на компьютере и все происходит через ваш подключенный Wifi или Ethernet кабелем.
-#4f455vd - Скачивая мою систему поиска, вы берете на себя отвественность, если модель как то либо вам сломает что то, используя наш поиск, я не несем за это никакой ущерб.
-#64fe23 - Я помогаю вам в случаях, если у вас что то не работает или если у вас возник вопрос, ТОЛЬКО если вы напишите мне на почту или в Issues разделе github'а. Если вас кто то просит помочь вам с вашей проблеме, не соглашайтесь, так как можно легко так украсть данные ваши и я уже не как не буду в этом виноват и вам помогать тоже не буду.
-#6r32567 - После завершения скачивания моей системы поиска, вы берете на себя отвестеность, что модель сможет оставлять как либо следы поиска после своей работы, если это произойдет. Подробно см. пункт #42535lgf #4f455vd 
-#92fe3g - Отправляя запрос модели используя мою систему поиска, вы также берете все на себя, так как отправляли запрос вы, а мой поиск всего лишь добавляет модели возможность выходить в интернет. 
-#5d6g7h - Эти правила будут обновляться и если вы их не прочитаете после обновления, то это не моя проблема
+# Условия использования
+
+## 1. Локальное выполнение
+
+Это программное обеспечение работает **полностью локально** на вашем устройстве, используя ваше собственное сетевое подключение (Wi-Fi/Ethernet). Оно не подключается к внешним серверам, принадлежащим или контролируемым автором. Все поисковые запросы, получение страниц и взаимодействие с моделью происходят на вашем компьютере.
+
+## 2. Отсутствие гарантий
+
+Это программное обеспечение предоставляется **«как есть»** по лицензии MIT, без каких-либо гарантий, явных или подразумеваемых. Автор не делает никаких заявлений о пригодности, надёжности, доступности или точности программного обеспечения для каких-либо целей.
+
+## 3. Ограничение ответственности
+
+Автор ни при каких обстоятельствах не несёт ответственности за любые претензии, ущерб или иную ответственность, возникающие в результате:
+- Использования или невозможности использования программного обеспечения
+- Поведения модели, её выводов или решений, принятых на основе результатов поиска
+- Использования системных ресурсов (ОЗУ, ЦП, пропускная способность сети)
+- Любого ущерба вашему устройству, данным или сети
+
+Вы несёте полную ответственность за все действия, выполняемые с использованием этого программного обеспечения.
+
+## 4. Ответственность пользователя
+
+Загружая и используя это программное обеспечение, вы признаёте и соглашаетесь, что:
+- Вы несёте исключительную ответственность за запросы, которые отправляете модели
+- Программное обеспечение лишь предоставляет модели возможность доступа к интернету; все запросы инициируете вы
+- Вы ответственны за мониторинг использования ресурсов на вашем устройстве
+- Вы понимаете, что одновременный запуск нескольких моделей может вызвать замедление работы системы
+
+## 5. Конфиденциальность и данные
+
+- **Логи:** `llama-server` выводит логи в консоль. Перенаправьте вывод в `NUL` (Windows) или `/dev/null` (Linux/macOS), если важна конфиденциальность.
+- **Следы поиска:** Ваши поисковые запросы отправляются напрямую сторонним сервисам (DuckDuckGo, Google News RSS, Marginalia). Ознакомьтесь с их соответствующими политиками конфиденциальности.
+- **Локальное хранение:** Модель и конфигурационные файлы остаются на вашем устройстве. Никакие данные не передаются автору.
+
+## 6. Официальные каналы поддержки
+
+Официальная поддержка предоставляется **только** через:
+- Email: helpaisearch@gmail.com
+- GitHub Issues: https://github.com/vanyapepei920-sudo/local-web-agent/issues
+
+⚠️ **Предупреждение о безопасности:** Не принимайте помощь от лиц в комментариях, личных сообщениях или на форумах, предлагающих «исправить вашу настройку». Никогда не делитесь своим `mcp.json`, API-ключами или конфигурационными файлами с незнакомцами. Это распространённый способ мошенничества.
+
+## 7. Обновления и изменения
+
+Эти условия могут периодически обновляться. Ваша ответственность — ознакомиться с последней версией в репозитории. Продолжение использования программного обеспечения после внесения изменений означает принятие обновлённых условий.
+
+## 8. Принятие условий
+
+Загружая, устанавливая или используя это программное обеспечение, вы соглашаетесь соблюдать эти условия и лицензию MIT.
