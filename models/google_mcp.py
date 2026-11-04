@@ -1,14 +1,13 @@
-# -*- coding: utf-8 -*-
-"""MCP web-tools v9: ddgs(web) + Google News RSS + Marginalia + robust read_page.
-search_health is NO LONGER a model-visible tool (it hijacked vague 'find info'
-requests). Health info is folded into web_search's empty-result response instead."""
+# -*- coding: ascii -*-
+"""MCP web-tools v10: search now self-prompts page-reading when snippets lack
+the answer. read_page unchanged (multi-URL). No special tokens in strings."""
 import re
 import requests
 from urllib.parse import quote_plus
 from xml.etree import ElementTree as ET
 from mcp.server.fastmcp import FastMCP
 
-MARGINALIA_KEY = "public"   # free demo key, no signup
+MARGINALIA_KEY = "public"
 UA = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36",
       "Accept-Language": "ru,en;q=0.8"}
 mcp = FastMCP("web")
@@ -17,8 +16,6 @@ mcp = FastMCP("web")
 def clean(s):
     return re.sub(r'\s+', ' ', re.sub('<[^>]+>', '', s or '')).strip()
 
-
-# ---------------- search backends (proven working) ----------------
 
 def _ddgs(q):
     try:
@@ -80,15 +77,16 @@ def _run(q, order):
             if not t or k in seen:
                 continue
             seen.add(k)
-            lines.append("- [" + src + "] " + t + " | URL: " + u + " | " + s[:150])
+            tag = ""
+            if len(s) < 40:
+                tag = " [SHORT SNIPPET - open this URL with read_page]"
+            lines.append("- [" + src + "] " + t + " | URL: " + u + " | " + s[:150] + tag)
         if len(lines) >= 8:
             break
     if not lines:
         return "Nothing found"
     return "\n".join("[" + str(n) + "] " + line for n, line in enumerate(lines, 1))
 
-
-# ---------------- robust page reader ----------------
 
 def _fetch_one(u, max_chars):
     last_err = None
@@ -125,12 +123,11 @@ def _fetch_one(u, max_chars):
 def read_page(url: str, max_chars: int = 6000) -> str:
     """Open one or more web pages by URL and return their clean readable text.
     ALWAYS use this tool when the user asks to open, read, view, summarize, check,
-    look at, or 'go to' a link / URL / page / article. If the user refers to a
-    result from a previous web_search (e.g. 'the 2nd link', 'open the banki.ru one'),
-    resolve it to its full URL from that search output and pass the URL here.
-    Accepts a single URL, or several URLs separated by spaces / newlines / commas.
-    Returns per page: TITLE, final URL (after redirects), then article text with
-    menus/ads/scripts stripped. max_chars = per-page text budget (default 6000)."""
+    look at, or 'go to' a link / URL / page / article. Also use it after web_search
+    when the snippets did not contain a precise or approximate answer: pass the
+    most promising URLs from the search list here. Accepts a single URL, or several
+    URLs separated by spaces / newlines / commas. Returns per page: TITLE, final
+    URL (after redirects), then article text with menus/ads/scripts stripped."""
     parts = re.split(r"[\s,]+", (url or "").strip())
     urls = [p for p in parts if p.startswith(("http://", "https://"))]
     if not urls:
@@ -139,24 +136,32 @@ def read_page(url: str, max_chars: int = 6000) -> str:
     return "\n\n===== PAGE BREAK =====\n\n".join(blocks)
 
 
-# ---------------- tools (search_health REMOVED from the model's view) ----------------
+ANSWER_CHECK = (
+    "\n\n=== ANSWER CHECK (read before replying) ===\n"
+    "Look at the snippets above. Do they contain a PRECISE or even APPROXIMATE "
+    "answer to the user's question? If YES - answer from them. If NO, or if any "
+    "line is marked [SHORT SNIPPET], or if the numbers/facts you need are missing "
+    "- you MUST call read_page on the 1-3 most promising URLs listed above, then "
+    "answer from the page text. Do NOT reply 'I could not find' while unopened "
+    "URLs are still on this list."
+)
+
 
 @mcp.tool()
 def web_search(query: str) -> str:
     """THE web search tool. Call this for ANY request to find / look up / search /
     'найди' / 'поищи' information about a person, company, place, product, event,
-    term, name, or any fact — including encyclopedic 'who is X', 'what is Y'.
+    term, name, or any fact - including encyclopedic 'who is X', 'what is Y'.
     This is the ONLY tool for searching; do NOT diagnose, do NOT check backends
-    first, just search. If the result is empty, the response itself tells you which
-    backends were tried. Returns a numbered list: source | title | URL | snippet.
-    Use read_page(url) to open any result in full when the user wants depth."""
+    first, just search. The result ends with an ANSWER CHECK block: follow it -
+    if the snippets do not answer the question, open the pages with read_page."""
     out = _run(query, ["ddgs", "marginalia"])
     if out == "Nothing found":
-        # fold lightweight health hint INTO the search result (no extra network call)
         out = ("Nothing found for: " + query +
-               "\nBackends tried: ddgs (DuckDuckGo/Mojeek/Brave/Startpage rotation), "
-               "marginalia. All returned empty — they may be rate-limited or down right now. "
-               "Retry shortly, rephrase the query, or try news_search for time-sensitive topics.")
+               "\nBackends tried: ddgs, marginalia. All empty - they may be rate-limited. "
+               "Retry, rephrase, or try news_search for time-sensitive topics.")
+    else:
+        out = out + ANSWER_CHECK
     return out
 
 
@@ -164,14 +169,14 @@ def web_search(query: str) -> str:
 def news_search(query: str) -> str:
     """Live news / current-events lookup via Google News RSS (no key). Call for
     anything time-sensitive: latest news, recent developments, today's prices,
-    exchange rates, dates, scores, releases, announcements, 'what happened',
-    'current status'. Prefer this over web_search for 'latest / today / now'."""
-    return _run(query, ["gnews", "ddgs"])
+    exchange rates, dates, scores, releases, announcements. Result also ends with
+    an ANSWER CHECK block - open pages with read_page if snippets lack the answer."""
+    out = _run(query, ["gnews", "ddgs"])
+    if out == "Nothing found":
+        return "Nothing found in news for: " + query
+    return out + ANSWER_CHECK
 
 
-# NOTE: search_health kept as a plain helper (NOT @mcp.tool) so the model cannot
-# auto-call it. Run it manually from a console when debugging:
-#   python -c "import sys; sys.path.insert(0,r'C:\models'); import google_mcp as g; print(g._health())"
 def _health():
     rep = ["ddgs: " + ("alive" if _ddgs("test") else "down"),
            "marginalia: " + ("alive" if _marginalia("test") else "down"),
