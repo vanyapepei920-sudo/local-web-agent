@@ -38,7 +38,7 @@ Everything runs in **one browser tab**. The model decides *on its own* when to s
 - 🪟 Optional **cloudflared tunnel** to expose the UI outside your LAN.
 - 🎛️ Helper batch scripts to switch between several GGUF models or run two at once.
 - 📉 Runs on **4 GB RAM / CPU / Windows 8.1** — if it works here, it works anywhere.
-
+# The website where our search system operates https://ai-chat-llama.cloudpub.ru/
 ---
 
 ## Architecture
