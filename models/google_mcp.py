@@ -1,4 +1,4 @@
-# -*- coding: ascii -*-
+# -*- coding: utf-8 -*-
 """MCP web-tools v10 (FINAL): search self-prompts page-reading when snippets
 lack the answer. read_page = multi-URL. search_health hidden from the model."""
 import re
@@ -150,7 +150,7 @@ ANSWER_CHECK = (
 @mcp.tool()
 def web_search(query: str) -> str:
     """THE web search tool. Call this for ANY request to find / look up / search /
-    'найди' / 'поищи' information about a person, company, place, product, event,
+    'naidi' / 'poishi' information about a person, company, place, product, event,
     term, name, or any fact - including encyclopedic 'who is X', 'what is Y'.
     This is the ONLY tool for searching; do NOT diagnose, do NOT check backends
     first, just search. The result ends with an ANSWER CHECK block: follow it -
