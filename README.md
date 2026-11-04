@@ -1,5 +1,5 @@
 # 🌐 Local Web Agent — offline LLM with real internet access
-
+# Please read Rules.md before use.
 > Run a **local** large language model that **browses the web by itself** — search, read full pages, fetch live news — directly from the built‑in web UI, with **no paid APIs, no keys, no cloud**. Tested on a 4 GB RAM laptop running Windows 8.1, CPU‑only.
 
 [Русская версия / Russian version](./README.ru.md)
