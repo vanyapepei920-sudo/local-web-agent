@@ -5,7 +5,7 @@
 [Русская версия / Russian version](./README.ru.md)
 
 ![license](https://img.shields.io/badge/license-MIT-blue) ![platform](https://img.shields.io/badge/platform-Windows%20%7C%20Linux%20%7C%20macOS-lightgrey) ![keys](https://img.shields.io/badge/API%20keys-required%3A%200-green)
-
+This project was created using Qwen; the project and the idea are mine.
 ---
 
 ## Why this exists
