@@ -5,7 +5,7 @@
 [English version](./README.md)
 
 ![license](https://img.shields.io/badge/license-MIT-blue) ![platform](https://img.shields.io/badge/platform-Windows%20%7C%20Linux%20%7C%20macOS-lightgrey) ![keys](https://img.shields.io/badge/%D0%9A%D0%BB%D1%8E%D1%87%D0%B8-API-requirement%3A%200-green)
-
+Данный проект создан через Qwen, собирался проект и идея моя
 ---
 
 ## Зачем это нужно
